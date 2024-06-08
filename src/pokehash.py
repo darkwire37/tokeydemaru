@@ -98,8 +98,20 @@ def calcDamage(attackMon, attackMove, defendMon):
 
 ### Converts the teams into a serial value
 def serializeTeams(teamA, teamB):
-    serial = json.dumps(teamA)
-    serial += json.dumps(teamB)
+    data = []
+    for mon in teamA:
+        newMon = {}
+        newMon['species'] = mon['species']
+        newMon['HP'] = mon['HP']
+        newMon['Status'] = mon['Status']
+        data.append(newMon)
+    for mon in teamB:
+        newMon = {}
+        newMon['species'] = mon['species']
+        newMon['HP'] = mon['HP']
+        newMon['Status'] = mon['Status']
+        data.append(newMon)
+    serial = json.dumps(data)
     return serial
 
 ### Prints a pokemon's moves
@@ -248,11 +260,9 @@ def checkKey():
         print("Authorized")
     else:
         print("Unauthorized")
-    
 
 
-
-
+### Main loop
 if __name__ == "__main__":
     while True:
         choice = input("1 - Generate Keypair (Automatic)\n2 - Generate Keypair (Manual)\n3 - Check Key\n>")
